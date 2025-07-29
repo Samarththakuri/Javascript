@@ -42,7 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
       cart.forEach((item, index) => {
         totalprice += item.prices;
         const cartItem = document.createElement("div");
-        cartItem.innerHTML = `${item.name} - ${item.prices.toFixed(2)}`;
+
+        cartItem.innerHTML = `${item.name} - ${item.prices.toFixed(2)}
+        <button class="remove-btn" data-index="${index}">Remove</button>`;
         cartItems.appendChild(cartItem);
         totalPriceDisplay.textContent = `${totalprice.toFixed(2)}`;
       });
@@ -56,5 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     alert("Checkedout successfully");
     renderCart();
+  });
+  cartItems.addEventListener("click", (e) => {
+    if (e.target.classList.contains("remove-btn")) {
+      const index = parseInt(e.target.getAttribute("data-index"));
+      cart.splice(index, 1);
+      renderCart();
+    }
   });
 });
