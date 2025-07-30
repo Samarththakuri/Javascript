@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { id: 2, name: "Product 2", prices: 19.99 },
     { id: 3, name: "Product 3", prices: 59.99 },
   ];
-  const cart = [];
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
   const productList = document.getElementById("product-list");
   const cartItems = document.getElementById("cart-items");
   const emptyCartMessage = document.getElementById("empty-cart");
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   function addToCart(product) {
     cart.push(product);
+    localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
   }
   //removing ka hai yeh also study about hidden class
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target.classList.contains("remove-btn")) {
       const index = parseInt(e.target.getAttribute("data-index"));
       cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
       renderCart();
     }
   });
